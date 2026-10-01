@@ -39,7 +39,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
+        applyApplicationIcon()
         controller.start()
+    }
+
+    /// A SwiftPM executable has no `.app` bundle, so the Dock icon is set
+    /// programmatically from the packaged `.icns` resource.
+    private func applyApplicationIcon() {
+        guard let iconURL = Bundle.module.url(forResource: "AppIcon", withExtension: "icns"),
+              let icon = NSImage(contentsOf: iconURL)
+        else { return }
+        NSApp.applicationIconImage = icon
     }
 
     func createNote() {

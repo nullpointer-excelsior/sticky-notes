@@ -23,7 +23,10 @@ let package = Package(
         ),
         .executableTarget(
             name: "StickyNotes",
-            dependencies: ["StickyNotesKit"]
+            dependencies: ["StickyNotesKit"],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .testTarget(
             name: "StickyNotesKitTests",
