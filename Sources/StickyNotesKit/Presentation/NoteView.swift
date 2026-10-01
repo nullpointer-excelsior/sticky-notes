@@ -48,9 +48,10 @@ struct NoteView: View {
                     }
                 }
             } label: {
-                Image(systemName: "ellipsis")
+                Image(systemName: "paintpalette")
             }
-            .menuStyle(.borderlessButton)
+            .menuStyle(.button)
+            .buttonStyle(.plain)
             .menuIndicator(.hidden)
             .fixedSize()
             .help("Color")
