@@ -74,6 +74,7 @@ struct NoteView: View {
         if viewModel.isEditing {
             TextEditor(text: $viewModel.draftText)
                 .font(.system(size: viewModel.note.fontSize))
+                .foregroundStyle(Color(white: 0.35))
                 .scrollContentBackground(.hidden)
                 .background(Color.clear)
                 .focused($isFocused)
