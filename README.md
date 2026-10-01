@@ -48,6 +48,38 @@ swift test
 
 Runs the Swift Testing suites covering note creation (TEST-1), Markdown rendering on blur (TEST-2), restore across sessions (TEST-3), color persistence (TEST-4), frame persistence (TEST-5), deleting the last note (TEST-6), empty content (TEST-7), corrupted-file isolation, and store behavior (z-order, resize, autosave).
 
+## Package
+
+Build a `.app` bundle and a distributable `.dmg`:
+
+```bash
+make dmg
+```
+
+`SwiftPM` only produces a bare executable, so the pipeline assembles the bundle itself: `swift build -c release`, then `dist/StickyNotes.app` (`Contents/MacOS`, `Info.plist`, icon, and the resource bundle), then an ad-hoc code signature, and finally `dist/StickyNotes.dmg` with `create-dmg`. All output goes to `dist/`.
+
+Available targets:
+
+| Target | Description |
+|--------|-------------|
+| `make` / `make dmg` | Full pipeline: build, bundle, sign, DMG (default). |
+| `make build` | Release build only. |
+| `make app` | Assemble `dist/StickyNotes.app`. |
+| `make sign` | Sign the bundle. |
+| `make verify` | Validate the DMG with `hdiutil verify`. |
+| `make open` | Build the DMG and open it. |
+| `make clean` | Remove `dist/`. |
+
+`create-dmg` is required for the DMG step (`brew install create-dmg`).
+
+Signing is ad-hoc by default, which is enough to run locally but not to distribute. To sign with a Developer ID:
+
+```bash
+make dmg SIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+```
+
+> Notes: the bundle is built for the host architecture only; universal builds (`swift build --arch arm64 --arch x86_64`) require Xcode's `xcbuild`, which the Command Line Tools toolchain does not ship. Ad-hoc signed apps are not notarized, so on another Mac Gatekeeper still requires right-click → Open (or `xattr -dr com.apple.quarantine /Applications/StickyNotes.app`).
+
 ## Usage
 
 - **Create note**: `+` button on a note's bar (or `Cmd + N`).
@@ -74,6 +106,7 @@ Runs the Swift Testing suites covering note creation (TEST-1), Markdown renderin
 ## Project structure
 
 ```
+Makefile                               # Release packaging: .app bundle + .dmg
 Package.swift                          # SPM: targets, platform, test dependency
 Sources/
   StickyNotes/                         # Executable target

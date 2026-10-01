@@ -30,6 +30,9 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
+# Distribution artifacts
+dist/
+
 # AI artifacts
 artifacts/
 .opencode/
