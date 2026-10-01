@@ -28,7 +28,7 @@ enum AppConstants {
     static let cornerRadius: Double = 10
 
     /// Default body font size for a note, in points.
-    static let defaultFontSize: Double = 13
+    static let defaultFontSize: Double = 16
 
     /// Amount the font size shortcuts add or subtract, in points.
     static let fontSizeStep: Double = 1
