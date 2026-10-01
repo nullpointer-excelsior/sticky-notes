@@ -94,6 +94,11 @@ extension WindowCoordinator: NSWindowDelegate {
         store.bringToFront(id: id)
     }
 
+    func windowDidResignKey(_ notification: Notification) {
+        guard let panel = notification.object as? StickyPanel, let id = panel.noteID else { return }
+        flushEdits(for: id)
+    }
+
     func windowWillClose(_ notification: Notification) {
         guard let panel = notification.object as? StickyPanel, let id = panel.noteID else { return }
         flushEdits(for: id)
