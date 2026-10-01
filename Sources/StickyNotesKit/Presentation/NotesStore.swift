@@ -45,7 +45,7 @@ final class NotesStore {
         let note = Note(
             id: UUID(),
             text: "",
-            color: AppConstants.defaultColor,
+            color: NoteColor.random(),
             frame: frame,
             zIndex: nextZIndex(excluding: nil),
             createdAt: now,

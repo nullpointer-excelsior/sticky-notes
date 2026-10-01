@@ -11,6 +11,11 @@ enum NoteColor: String, Codable, CaseIterable, Sendable, Hashable {
     case orange
     case gray
 
+    /// Returns a color picked uniformly at random from the full palette.
+    static func random() -> NoteColor {
+        allCases.randomElement() ?? .yellow
+    }
+
     var displayName: String {
         switch self {
         case .yellow: "Yellow"

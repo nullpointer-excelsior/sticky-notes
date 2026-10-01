@@ -12,9 +12,6 @@ enum AppConstants {
     static let minimumNoteWidth: Double = 180
     static let minimumNoteHeight: Double = 140
 
-    /// Color applied to new notes.
-    static let defaultColor: NoteColor = .yellow
-
     /// Full palette exposed to the user.
     static let palette: [NoteColor] = NoteColor.allCases
 
