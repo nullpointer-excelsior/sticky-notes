@@ -27,6 +27,16 @@ enum AppConstants {
     /// Corner radius shared by the note surface.
     static let cornerRadius: Double = 10
 
+    /// Default body font size for a note, in points.
+    static let defaultFontSize: Double = 13
+
+    /// Amount the font size shortcuts add or subtract, in points.
+    static let fontSizeStep: Double = 1
+
+    /// Bounds the note font size is clamped to, in points.
+    static let minimumFontSize: Double = 9
+    static let maximumFontSize: Double = 32
+
     /// Subsystem identifier used by the app's loggers.
     static let loggerSubsystem = "com.stickynotes.app"
 }

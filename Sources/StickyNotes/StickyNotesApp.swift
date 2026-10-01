@@ -17,6 +17,17 @@ struct StickyNotesApp: App {
                 }
                 .keyboardShortcut("n", modifiers: .command)
             }
+            CommandMenu("View") {
+                Button("Increase Font Size") {
+                    appDelegate.increaseFontSize()
+                }
+                .keyboardShortcut("+", modifiers: .command)
+
+                Button("Decrease Font Size") {
+                    appDelegate.decreaseFontSize()
+                }
+                .keyboardShortcut("-", modifiers: .command)
+            }
         }
     }
 }
@@ -33,6 +44,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func createNote() {
         controller.createNote()
+    }
+
+    func increaseFontSize() {
+        controller.increaseFontSize()
+    }
+
+    func decreaseFontSize() {
+        controller.decreaseFontSize()
     }
 
     func applicationWillTerminate(_ notification: Notification) {

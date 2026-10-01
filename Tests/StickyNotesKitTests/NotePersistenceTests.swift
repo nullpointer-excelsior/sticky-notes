@@ -60,6 +60,41 @@ struct NotePersistenceTests {
         #expect(restored.note(id: note.id)?.frame == expected)
     }
 
+    @Test("the note font size is persisted and restored")
+    func persistsFontSize() {
+        let directory = TestSupport.makeTemporaryDirectory()
+        let first = NotesStore(repository: JSONFileRepository(directory: directory))
+        let note = first.createNote()
+        first.update(id: note.id) { $0.fontSize = 20 }
+
+        let restored = NotesStore(repository: JSONFileRepository(directory: directory))
+        restored.load()
+
+        #expect(restored.note(id: note.id)?.fontSize == 20)
+    }
+
+    @Test("notes persisted before fontSize existed load with the default size")
+    func decodesLegacyNotesWithDefaultFontSize() throws {
+        let id = UUID()
+        let json = """
+        {
+          "id": "\(id.uuidString)",
+          "text": "legacy",
+          "color": "green",
+          "frame": { "x": 0, "y": 0, "width": 200, "height": 150 },
+          "zIndex": 1,
+          "createdAt": "2024-01-01T00:00:00Z",
+          "updatedAt": "2024-01-01T00:00:00Z"
+        }
+        """
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let note = try decoder.decode(Note.self, from: Data(json.utf8))
+
+        #expect(note.id == id)
+        #expect(note.fontSize == AppConstants.defaultFontSize)
+    }
+
     @Test("a corrupted note file is skipped without failing the whole load")
     func skipsCorruptedFiles() throws {
         let directory = TestSupport.makeTemporaryDirectory()

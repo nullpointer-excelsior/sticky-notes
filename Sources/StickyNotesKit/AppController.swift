@@ -29,8 +29,26 @@ public final class AppController {
         store.createNote()
     }
 
+    /// Enlarges the font size of the focused note.
+    public func increaseFontSize() {
+        adjustFontSize(by: AppConstants.fontSizeStep)
+    }
+
+    /// Shrinks the font size of the focused note.
+    public func decreaseFontSize() {
+        adjustFontSize(by: -AppConstants.fontSizeStep)
+    }
+
     /// Flushes the geometry of every open note. Called on app termination.
     public func persistAll() {
         coordinator.persistAll()
+    }
+
+    private func adjustFontSize(by delta: Double) {
+        guard let id = coordinator.activeNoteID else { return }
+        store.update(id: id) { note in
+            let newSize = note.fontSize + delta
+            note.fontSize = min(max(newSize, AppConstants.minimumFontSize), AppConstants.maximumFontSize)
+        }
     }
 }

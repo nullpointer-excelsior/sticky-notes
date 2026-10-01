@@ -26,6 +26,12 @@ final class WindowCoordinator: NSObject {
         }
     }
 
+    /// Identifier of the note whose panel is currently focused, if any. Used to
+    /// route app-wide commands (such as the font size shortcuts) to a single note.
+    var activeNoteID: UUID? {
+        (NSApp.keyWindow as? StickyPanel)?.noteID
+    }
+
     /// Flushes any pending editor draft and persists the current geometry of
     /// every open panel. Called on termination.
     func persistAll() {

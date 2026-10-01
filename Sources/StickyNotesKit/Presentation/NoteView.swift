@@ -73,7 +73,7 @@ struct NoteView: View {
     private var content: some View {
         if viewModel.isEditing {
             TextEditor(text: $viewModel.draftText)
-                .font(.system(size: 13))
+                .font(.system(size: viewModel.note.fontSize))
                 .scrollContentBackground(.hidden)
                 .background(Color.clear)
                 .focused($isFocused)
@@ -93,7 +93,7 @@ struct NoteView: View {
                             .textSelection(.enabled)
                     }
                 }
-                .font(.system(size: 13))
+                .font(.system(size: viewModel.note.fontSize))
                 .foregroundStyle(Color.black.opacity(0.9))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(10)
