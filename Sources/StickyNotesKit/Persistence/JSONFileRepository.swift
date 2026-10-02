@@ -24,11 +24,26 @@ final class JSONFileRepository: NoteRepository {
     }
 
     /// Default storage location inside the user's Application Support folder.
+    /// Development builds launched outside a packaged `.app` use an isolated
+    /// directory so they never share data with the installed application.
     static func defaultDirectory() -> URL {
         let base = FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)
             .first ?? FileManager.default.temporaryDirectory
-        return base.appendingPathComponent(AppConstants.storageDirectoryName, isDirectory: true)
+        return base.appendingPathComponent(resolvedStorageDirectoryName, isDirectory: true)
+    }
+
+    /// Storage directory that corresponds to how the process was launched.
+    private static var resolvedStorageDirectoryName: String {
+        isRunningInAppBundle
+            ? AppConstants.storageDirectoryName
+            : AppConstants.developmentStorageDirectoryName
+    }
+
+    /// `true` when the process runs from a packaged `.app`; a bare SwiftPM
+    /// executable (such as `swift run StickyNotes`) is not bundled.
+    private static var isRunningInAppBundle: Bool {
+        Bundle.main.bundlePath.hasSuffix(".app")
     }
 
     func loadAll() throws -> [Note] {

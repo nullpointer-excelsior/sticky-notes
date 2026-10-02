@@ -21,6 +21,11 @@ enum AppConstants {
     /// Application Support subdirectory that stores the note files.
     static let storageDirectoryName = "StickyNotes"
 
+    /// Application Support subdirectory used by development builds launched
+    /// outside a packaged `.app` (e.g. `swift run`), so they never touch the
+    /// data written by the installed application.
+    static let developmentStorageDirectoryName = "StickyNotes-Dev"
+
     /// File extension used for one note per file.
     static let noteFileExtension = "json"
 
