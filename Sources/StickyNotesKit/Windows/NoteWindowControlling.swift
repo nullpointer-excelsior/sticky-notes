@@ -9,4 +9,8 @@ protocol NoteWindowControlling: AnyObject {
 
     /// Resizes the window's content area, keeping the top-left corner anchored.
     func resizeContent(to size: CGSize)
+
+    /// Applies the pinned window behavior: pinned notes float above other
+    /// applications; unpinned notes behave like regular windows.
+    func applyPinned(_ isPinned: Bool)
 }

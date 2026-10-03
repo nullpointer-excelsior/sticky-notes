@@ -70,6 +70,12 @@ final class NoteViewModel {
         store.update(id: id) { $0.color = color }
     }
 
+    /// Flips the pin state, persists it, and applies it to the hosting window.
+    func togglePinned() {
+        store.update(id: id) { $0.isPinned.toggle() }
+        windowController?.applyPinned(note.isPinned)
+    }
+
     func createNote() {
         store.createNote()
     }

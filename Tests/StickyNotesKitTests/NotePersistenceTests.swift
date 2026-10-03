@@ -93,6 +93,7 @@ struct NotePersistenceTests {
 
         #expect(note.id == id)
         #expect(note.fontSize == AppConstants.defaultFontSize)
+        #expect(!note.isPinned)
     }
 
     @Test("a corrupted note file is skipped without failing the whole load")

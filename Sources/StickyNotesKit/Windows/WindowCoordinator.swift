@@ -43,13 +43,14 @@ final class WindowCoordinator: NSObject {
 
     private func present(_ note: Note) {
         if let existing = panels[note.id] {
+            existing.applyPinned(note.isPinned)
             existing.setFrame(note.frame.nsRect, display: true)
             existing.orderFrontRegardless()
             return
         }
 
         let viewModel = NoteViewModel(note: note, store: store)
-        let panel = StickyPanel(frame: note.frame)
+        let panel = StickyPanel(frame: note.frame, isPinned: note.isPinned)
         panel.noteID = note.id
         panel.delegate = self
         panel.contentViewController = NSHostingController(rootView: NoteView(viewModel: viewModel))

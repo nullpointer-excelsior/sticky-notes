@@ -39,6 +39,12 @@ struct NoteView: View {
 
             Spacer(minLength: 0)
 
+            Button(action: viewModel.togglePinned) {
+                Image(systemName: viewModel.note.isPinned ? "pin.fill" : "pin")
+            }
+            .buttonStyle(.plain)
+            .help(viewModel.note.isPinned ? "Unpin note" : "Pin note")
+
             Menu {
                 ForEach(AppConstants.palette, id: \.self) { color in
                     Button {
