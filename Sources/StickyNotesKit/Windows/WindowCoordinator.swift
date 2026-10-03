@@ -99,6 +99,7 @@ extension WindowCoordinator: NSWindowDelegate {
     func windowDidBecomeKey(_ notification: Notification) {
         guard let panel = notification.object as? StickyPanel, let id = panel.noteID else { return }
         store.bringToFront(id: id)
+        panel.orderFrontRegardless()
     }
 
     func windowDidResignKey(_ notification: Notification) {
