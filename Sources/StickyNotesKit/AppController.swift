@@ -44,6 +44,26 @@ public final class AppController {
         coordinator.persistAll()
     }
 
+    /// Builds the Dock context menu from the current notes, wired back to this
+    /// controller's Dock-menu actions.
+    public func dockMenu() -> NSMenu? {
+        DockMenuBuilder().buildMenu(
+            notes: store.notes,
+            target: self,
+            focusSelector: #selector(focusNoteFromDockMenu(_:)),
+            newNoteSelector: #selector(createNoteFromDockMenu(_:))
+        )
+    }
+
+    @objc public func focusNoteFromDockMenu(_ sender: NSMenuItem) {
+        guard let id = sender.representedObject as? UUID else { return }
+        coordinator.focus(noteID: id)
+    }
+
+    @objc public func createNoteFromDockMenu(_ sender: NSMenuItem) {
+        createNote()
+    }
+
     private func adjustFontSize(by delta: Double) {
         guard let id = coordinator.activeNoteID else { return }
         store.update(id: id) { note in

@@ -64,6 +64,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         controller.decreaseFontSize()
     }
 
+    func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
+        controller.dockMenu()
+    }
+
     func applicationWillTerminate(_ notification: Notification) {
         controller.persistAll()
     }

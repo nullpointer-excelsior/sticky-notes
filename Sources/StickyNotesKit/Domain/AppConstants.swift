@@ -44,4 +44,19 @@ enum AppConstants {
 
     /// Subsystem identifier used by the app's loggers.
     static let loggerSubsystem = "com.stickynotes.app"
+
+    /// Maximum number of characters shown for a note's title in the Dock menu.
+    static let dockMenuTitleMaxLength: Int = 40
+
+    /// Ellipsis appended to Dock menu titles longer than `dockMenuTitleMaxLength`.
+    static let dockMenuTitleEllipsis: String = "…"
+
+    /// Prefix used for Dock menu items whose note has no usable first line.
+    static let dockMenuUntitledPrefix: String = "Note"
+
+    /// Title of the disabled Dock menu item shown when there are no notes.
+    static let dockMenuEmptyStateTitle: String = "No Notes"
+
+    /// Title of the Dock menu item that creates a new note.
+    static let dockMenuNewNoteTitle: String = "New Note"
 }

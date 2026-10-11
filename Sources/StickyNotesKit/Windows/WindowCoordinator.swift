@@ -32,6 +32,16 @@ final class WindowCoordinator: NSObject {
         (NSApp.keyWindow as? StickyPanel)?.noteID
     }
 
+    /// Brings the panel for the given note to the front as the key window.
+    /// Activates the app first so it works even when the app is backgrounded,
+    /// and raises the panel whether or not it is pinned.
+    func focus(noteID: UUID) {
+        guard let panel = panels[noteID] else { return }
+        NSApp.activate(ignoringOtherApps: true)
+        panel.orderFrontRegardless()
+        panel.makeKeyAndOrderFront(nil)
+    }
+
     /// Flushes any pending editor draft and persists the current geometry of
     /// every open panel. Called on termination.
     func persistAll() {
